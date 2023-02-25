@@ -1,5 +1,5 @@
 
-function StartCommentBlock() range
+function! StartCommentBlock() range
 
 	let commstr = split(&commentstring, '%s')
 
@@ -143,5 +143,6 @@ function RemoveMultiLineBlock(flb, llb)
 		call setpos(".", cursor)
 endfunction
 
+noremap <C-/> :call StartCommentBlock()<CR>
 
 echom "module: Comment Block "

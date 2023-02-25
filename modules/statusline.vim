@@ -26,6 +26,8 @@
 :hi VisualMode ctermfg=33 ctermbg=240
 " -replace
 :hi ReplaceMode ctermfg=226 ctermbg=240
+" -select
+:hi SelectlMode ctermfg=46 ctermbg=240
 
 
 
@@ -56,6 +58,7 @@ function StatusLine()
 	let l:l = printf('%s%s%s%s%s', lft, space, cntr, space, rgt) 
 	
 	return l:l
+
 
 endfunction
 
@@ -121,17 +124,22 @@ function GetCurrentMode()
 			let clr = '%#NormalMode#'
 			return '['.clr.'N%*]'
 
-		elseif "i" == l:mode
+		elseif 'i' == l:mode
 			let clr = '%#InsertMode#'
 			return '['.clr.'I%*]'
 
-		elseif "Vv\x16" =~ l:mode
+		elseif 'Vv'."\x16" =~ l:mode
 			let clr = '%#VisualMode#'
 			return '['.clr.'V%*]'
 
-		elseif "R" == l:mode
+		elseif 'R' == l:mode
 			let clr = '%#ReplaceMode#'
-			return '['.clr.'R%*]'
+		   	return '['.clr.'R%*]'
+
+		elseif 'Ss'."\x13" =~ l:mode
+			let clr = '%#SelectlMode#'
+			return '['.clr.'S%*]'
+
 		endif
 	endif
 	return ''
